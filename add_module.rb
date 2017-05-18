@@ -1,12 +1,21 @@
+# Using previous example from class_inheritance. Add example of a module.
+# Module similar to inheritace, allows more room for specifity. For example, 
+# what is one specific thing other then the obvious size, color, etc that 
+# I want my shoes and boots to have in common? I'd like to be able to order 
+# both types!
+
 module OrderShoe
   def order_pair
-    puts "Placing order..."
+    puts "Placing order...for size #{@size} in #{@color}."
   end
 end
 
+# Above module, looks just like a class.
+
 class Shoe
-  include OrderShoe
-   attr_reader :size, :fit, :water_proof
+  include OrderShoe #"include" + module name#
+  attr_reader :size, :fit, :water_proof
+
   def initialize(input_options)
     @size = input_options[:size]
     @fit = input_options[:fit]
@@ -23,21 +32,10 @@ class Shoe
     @size = 1 + @size
   end
 end
-# Use attr_reader in subsitution to find single attribute by itself
-# instead of writing a method for each
 
 shoe_1 = Shoe.new(size: 8, fit: "medium", color: "black", water_proof: false)
 shoe_2 = Shoe.new(size: 4, fit: "narrow", color: "white/navy", waterproof: false)
 shoe_3 = Shoe.new(size: 9, fit: "wide", color: "bronze", waterproof: "water_proof")
-shoe_1.print_info
-shoe_2.print_info
-shoe_3.print_info
-shoe_3.increase_size
-puts shoe_3.fit.upcase
-
-# New example using inheritance
-# Using the < symbol, Class Boot will inherit everything from the Shoe Class
-# plus one other method, def rain, for itself.
 
 class Boot < Shoe
   def rain
@@ -45,9 +43,10 @@ class Boot < Shoe
   end
 end
 
-boot_1 = Boot.new(size: 8, fit: "wide", color: "black", water_proof: "waterproof")
+boot_1 = Boot.new(size: 4, fit: "wide", color: "yellow", water_proof: "waterproof")
 boot_1.print_info
 boot_1.rain
 
 shoe_1.order_pair
 boot_1.order_pair
+
